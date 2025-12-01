@@ -1,18 +1,6 @@
 # Hand-Gesture-Drawing
 Hand-Gesture-Drawing 🤏🎨 | A touch-free air canvas powered by OpenCV + MediaPipe 🚀. Draw by pinch 🤌 in real-time, switch neon-bright colors 🌈, clear screen 💥, and save art instantly 💾✨. No hardware or stylus needed 🎯—just your hand ✋ and camera 📸. Built for learning, creativity ✍️, fun 😍, and interactive computer-vision exploration 💡✨.
 
-
-## 🎥 Live Demo
-
-<div align="center">
-  <video width="700" controls>
-    <source src="https://github.com/user-attachments/assets/ff5fda95-4a84-4c42-a72d-d170f4df3f12" type="video/mp4">
-  </video>
-</div>
-
-
-
-
 ---
 
 # 🤏🎮 Hand-Gesture-Drawing – Touchless Neon Canvas ✨🖌️
