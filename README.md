@@ -5,7 +5,7 @@ Hand-Gesture-Drawing 🤏🎨 | A touch-free air canvas powered by OpenCV + Medi
 
 # 🤏🎮 Hand-Gesture-Drawing – Touchless Neon Canvas ✨🖌️
 
-Hand-Gesture-Drawing is a real-time, interactive, and completely **touch-free air drawing system** built using **OpenCV + MediaPipe Hands** 👀✋.  
+Hand-Gesture-Drawing is a real-time, interactive, and completely **touch-free air drawing system** built using **OpenCV + MediaPipe Hands** 👀✋.
 Draw in air using pinch 🤌, switch neon colors 🌈⚡, clear canvas 💥 and save your art 💾—all using just your hand and webcam 📸.
 
 ---
