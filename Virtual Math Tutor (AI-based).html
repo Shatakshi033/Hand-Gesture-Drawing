@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Math Tutor</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f7f8fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      color: #222;
+      gap: 10px;
+    }
+
+    h1::before {
+      content: "🧮";
+      font-size: 2rem;
+    }
+
+    textarea {
+      width: 80%;
+      max-width: 700px;
+      height: 100px;
+      font-size: 1rem;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      resize: none;
+      margin-top: 20px;
+    }
+
+    button {
+      margin-top: 15px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    #output {
+      width: 80%;
+      max-width: 700px;
+      margin-top: 25px;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Virtual Math Tutor</h1>
+
+  <textarea id="question" placeholder="Enter your math problem (e.g. Solve 3x + 7 = 16)"></textarea>
+  <button onclick="solveMath()">Solve</button>
+
+  <div id="output"></div>
+
+  <script>
+    async function solveMath() {
+      const question = document.getElementById("question").value.trim();
+      const outputDiv = document.getElementById("output");
+
+      if (!question) {
+        outputDiv.innerHTML = "⚠️ Please enter a question.";
+        return;
+      }
+
+      outputDiv.innerHTML = "Solving... Please wait ⏳";
+
+      const API_KEY = "your_real_api_key_here"; // 🔑 Replace this
+
+      try {
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [
+                {
+                  parts: [
+                    {
+                      text: `You are a helpful math tutor. Please solve this math question step by step and show the final answer clearly: ${question}`
+                    }
+                  ]
+                }
+              ]
+            })
+          }
+        );
+
+        const data = await response.json();
+        console.log("Full API response:", data);
+
+        // ✅ Extract all possible answer fields
+        let answer =
+          data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+          data?.candidates?.[0]?.content?.parts?.map(p => p.text).join("<br>") ||
+          data?.candidates?.[0]?.output_text ||
+          data?.text ||
+          "❌ No valid answer received. Please check your API key or try again.";
+
+        // Clean Markdown formatting
+        answer = answer
+          .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+          .replace(/\n/g, "<br>");
+
+        outputDiv.innerHTML = `<strong>Solution:</strong><br>${answer}`;
+      } catch (error) {
+        console.error(error);
+        outputDiv.innerHTML = "❌ Error connecting to Gemini API.";
+      }
+    }
+  </script>
+</body>
+</html>
